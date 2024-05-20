@@ -1,0 +1,63 @@
+﻿@model Project.BusinessObject.ManagePayment
+@{
+    ViewBag.Title = "ManagePayment";
+}
+    <div class="form-horizontal">
+        <br />
+        <h2 class="text-center">Manage Payment</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-sm-4"></div>
+
+            <div class="col-sm-4">
+
+                <div class="form-group font-weight-bold">
+                    @Html.DisplayFor(model => model.PaymentType)
+                </div>
+                @Html.HiddenFor(m => m.NoOfInstallmentsPaid, new { htmlAttributes = new { id = "InstallmentPaid" } })
+                <input id="OrderID"
+                   type="hidden"
+                   value="@ViewBag.OrderID" />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AmountToPay, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.AmountToPay, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.AmountToPay, disabled = "disabled" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Pay" id="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $('#Save').click(function () {
+        $.ajax({
+            contenttype: 'application/json; charset=utf-8',
+            //datatype: 'json',
+            type: 'post',
+            async: false,
+            url: '/Order/Manage_Payment',
+            data: { "NoofPaymentPaid": $("#InstallmentPaid").val(), "orderID": $("#OrderID").val()},
+            success: function (response) {
+                if (response == "Success")
+                    window.location.href = "/Order/GetSupplierOrderHistory?orderDelivered=YES";
+                else
+                    alert(response);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    });
+</script>

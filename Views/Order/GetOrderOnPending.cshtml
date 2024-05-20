@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Project.BusinessObject.CreateOrder>
+
+@{
+    ViewBag.Title = "GetOrderOnPending";
+}
+<br />
+<h2>Order Pendings</h2>
+<hr />
+<table class="table"  style="display: block; overflow-x: auto; white-space: nowrap;">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Delivery Charges
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Buyer Name
+        </th>
+        <th>
+            Order Time
+        </th>
+        <th>
+            Delivered
+        </th>
+        <th>
+            IS Delivered
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeliveryCharges)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BuyerName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Delivered)
+    </td>
+    <td>
+        @Html.ActionLink("Delivered", "OrderDelivered", new { orderID = item.OrderID })
+    </td>
+</tr>
+}
+
+</table>

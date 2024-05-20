@@ -1,0 +1,179 @@
+﻿@model Project.BusinessObject.CreateOrder
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br />
+        <h2 class="text-center">Create Order</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Supplier, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Suppliers", (IEnumerable<SelectListItem>)ViewBag.Suppliers, htmlAttributes: new { @class = "form-control", id = "Supplier" })
+                @Html.ValidationMessageFor(model => model.Supplier, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Products", (IEnumerable<SelectListItem>)ViewBag.Products, htmlAttributes: new { @class = "form-control", id = "Product" })
+                @Html.ValidationMessageFor(model => model.Product, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", id = "Quantity" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PaymentMode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PaymentMode", (IEnumerable<SelectListItem>)ViewBag.PaymentMode, htmlAttributes: new { @class = "form-control", id = "PaymentMode" })
+                @Html.ValidationMessageFor(model => model.PaymentMode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NooOfInstallment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NooOfInstallment, new { htmlAttributes = new { @class = "form-control", id = "NoOfInstallment" } })
+                @Html.ValidationMessageFor(model => model.NooOfInstallment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeliveryCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DeliveryCharges, new { htmlAttributes = new { @class = "form-control", id = "DeliveryCharges", disabled = "true" } })
+                @Html.ValidationMessageFor(model => model.DeliveryCharges, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", id = "Price", disabled = "true" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", id = "Total", disabled = "true" } })
+                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Order" id="submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $("#PaymentMode").change(function () {
+        var item = $(this).val();
+        if (item == 1)
+            $("#NoOfInstallment").prop('disabled', true);
+        else
+            $("#NoOfInstallment").prop('disabled', false);
+    });
+
+    $("#Quantity").change(function () {
+        if ($("#Product").val()!="Select")
+            $("#Total").val((($("#Price").val() * $("#Quantity").val())*1) + ($("#DeliveryCharges").val()*1));
+    });
+    $("#Product").change(function () {
+
+        $.ajax({
+            contenttype: 'application/json; charset=utf-8',
+            //datatype: 'json',
+            type: 'post',
+            async: false,
+            url: '/Order/GetPrice',
+            data: { "productID": $(this).val() },
+            success: function (res) {
+                var temp = JSON.parse(res.json)
+                $("#DeliveryCharges").val(temp.DeliveryCharges);
+                $("#Price").val(temp.Price);
+                $("#Total").val((parseInt(temp.Price * $("#Quantity").val())) + ($("#DeliveryCharges").val()*1));
+            },
+            error: function (response) {
+                $('#result').html(response);
+            }
+        })  ;
+    });
+    $("#Supplier").change(function () {
+
+        $("#Product").empty();
+        $("#Product").append(new Option("Select", "Select"));
+        $.ajax({
+            contenttype: 'application/json; charset=utf-8',
+            //datatype: 'json',
+            type: 'post',
+            async: false,
+            url: '/Order/GetProductsBySupplier',
+            data: { "supplierID": $(this).val() },
+            success: function (res) {
+                var temp = JSON.parse(res.json);
+                for (var i = 0; i < temp.length; i++) {
+                    $("#Product").append(new Option(temp[i].Name, temp[i].ID));
+                }
+            },
+            error: function (response) {
+                $('#result').html(response);
+            }
+        });
+    });
+    $('#submit').click(function () {
+        if ($("#Product").val() == "Select") { alert('Please select Supplier'); return; }
+        if ($("#Product").val() == "Select") { alert('Please select Product'); return; }
+        if ($("#Quantity").val() == "") { alert('Please enter Quantity'); return; }
+        if ($("#PaymentMode").val() == "Select") { alert('Please select PaymentMode'); return; }
+        if ($("#NoOfInstallment").val() == "" && $("#PaymentMode").val() != "1") { alert('Please enter NoOfInstallment'); return; }
+        //if ($("#DeliveryCharges").val() == "") { alert('Please enter DeliveryCharges'); return; }
+        //if ($("#Total").val() == "") { alert('Please enter Total'); return; }
+        //if ($("#Price").val() == "") { alert('Please select Price'); return; }
+        var url = "/Order/SaveOrder/";
+        var obj = {
+            Product: $("#Product").val(),
+            Quantity: $("#Quantity").val(),
+            PaymentMode: $("#PaymentMode").val(),
+            NooOfInstallment: $("#NoOfInstallment").val(),
+            DeliveryCharges: $("#DeliveryCharges").val(),
+            Supplier: $("#Supplier").val(),
+            Total: $("#Total").val(),
+            Price: $("#Price").val()
+        }
+        $.ajax({
+            contenttype: 'application/json; charset=utf-8',
+            datatype: 'json',
+            type: 'post',
+            url: url,
+            data: { "orderobj": JSON.stringify(obj) },
+            success: function (response) {
+                alert(response);
+                $("#Product").val('Select');
+                $("#Quantity").val('');
+                $("#PaymentMode").val('Select');
+                $("#NoOfInstallment").val('');
+                $("#DeliveryCharges").val('');
+                $("#Total").val('');
+                $("#Price").val('');
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Project.Controllers.OrderController">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAEgAAICAACAAAAIAAAAECIAAAAAA=</HashCode>
+      <FileName>Controllers\OrderController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.ORDER">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAABCAAAAABABAABAAAAAAAAAAAAEAAAgAAQ=</HashCode>
+      <FileName>Models\ORDER.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.OrderDetail">
+    <Position X="12.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACABAAAAAAAAIAAAAEAAAAAAAAAAAAACAAAAABAAA=</HashCode>
+      <FileName>Models\OrderDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.Payment">
+    <Position X="12.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAhAAAAIBACACAAAAAAAIAAAAAAAACAAAAAABAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.PaymentDetail">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAIQAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PaymentDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.PaymentMode">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAACACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PaymentMode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessLogic.BL_Orders">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAAAAAgAAAAIAggAAAAAAAAAIAAAAAAAIAAgAAA=</HashCode>
+      <FileName>BusinessLogic\BL_Orders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessLogic.BL_Product">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>BusinessLogic\BL_Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessLogic.BL_Login">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\BL_Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessLogic.Hepler">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\Hepler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessObject.CreateOrder">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACABAFAQgAAKAAAUABAAgAAAIAQAAAAAAAgABIAAQ=</HashCode>
+      <FileName>BusinessObject\CreateOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessObject.ManagePayment">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAgAgAAAAAQAAAABAAAAAAAAAEAAAAgAAA=</HashCode>
+      <FileName>BusinessObject\CreateOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BusinessObject.User">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAAACAAEAAAAEAAAAAAAAACABBAAAAEAA=</HashCode>
+      <FileName>BusinessObject\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.BaseController">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQBAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.BuyerController">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\BuyerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.HomeController">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.LoginController">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAABAAAIAAAAACAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.ProductController">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="Project.Controllers.BaseController" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="0.5" />
+        <Point X="8.25" Y="0.262" />
+        <Point X="11.75" Y="0.262" />
+        <Point X="11.75" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controllers\ProductController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Controllers.SupplierController">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\SupplierController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.Product">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQBAAAAAAAAAAAAABAAAAQAAAAAAAAAACAAAACAAAA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.sysdiagram">
+    <Position X="14.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIAAAAAAAAAAAAAAAQAAAFAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\sysdiagram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.User">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAAACAAAAAAAEAAAAAAAgACABBAAABEAQ=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.UserRole">
+    <Position X="16.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAA=</HashCode>
+      <FileName>Models\UserRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.Models.WDMS_Entities">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQACAAAAJAACAAABAAAAAAEAAAAAgAAAAAEAABAAQ=</HashCode>
+      <FileName>Models\WDMS.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.BundleConfig">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.FilterConfig">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.MvcApplication">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.RouteConfig">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project.WebApiConfig">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Project.BusinessLogic.Result">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\Hepler.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Project.BusinessLogic.Role">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\Hepler.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Project.BusinessObject.CreateOrder>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<br />
+<h2 class="text-center">Order History</h2>
+
+<br />
+<table class="table" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Buyer Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Delivery Charges
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Payment Mode Name
+        </th>
+        <th>
+            No. Installment
+        </th>
+        <th>
+            Paid Installment
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Order Time
+        </th>
+        <th>
+            Deliver Time
+        </th>
+        <th>
+            Manage Payments
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(model => item.BuyerName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeliveryCharges)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaymentModeName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NooOfInstallment)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NooOfInstallmentPaid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeliverTime)
+    </td>
+    <td>
+        @if (item.NooOfInstallment != item.NooOfInstallmentPaid)
+        {
+            @Html.ActionLink("Manage", "ManagePayment", new { orderID = item.OrderID });
+        }
+        @*else
+        {
+            @Html.ActionLink("Manage", "ManagePayment", new { orderID = item.OrderID, disabled = "disabled" });
+        }*@
+
+
+    </td>
+</tr>
+    }
+
+</table>

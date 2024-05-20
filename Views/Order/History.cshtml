@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Project.BusinessObject.CreateOrder>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<br />
+<h2 class="text-center">Order History</h2>
+
+<br />
+<table class="table"  style="display: block; overflow-x: auto; white-space: nowrap;">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Delivery Charges
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Payment Mode
+        </th>
+        <th>
+            No. Installment
+        </th>
+        <th>
+            Paid Installment
+        </th>
+        <th>
+            Deliver Time
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeliveryCharges)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaymentModeName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NooOfInstallment)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NooOfInstallmentPaid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeliverTime)
+    </td>
+</tr>
+}
+
+</table>

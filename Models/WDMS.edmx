@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WDMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ODID" />
+          </Key>
+          <Property Name="ODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OPrice" Type="int" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Qunatity" Type="int" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="OID" />
+          </Key>
+          <Property Name="OID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OTotal" Type="int" />
+          <Property Name="ODate" Type="datetime" />
+          <Property Name="BuyerID" Type="int" />
+          <Property Name="DeliveredTime" Type="datetime" />
+          <Property Name="IsDelivered" Type="bit" />
+          <Property Name="SupplierId" Type="int" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PYID" />
+          </Key>
+          <Property Name="PYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="PaymentModeID" Type="int" />
+          <Property Name="PDateTime" Type="datetime" />
+          <Property Name="NoOfInstallment" Type="int" />
+          <Property Name="NoOfInstallmentPaid" Type="int" />
+        </EntityType>
+        <EntityType Name="PaymentDetails">
+          <Key>
+            <PropertyRef Name="PDID" />
+          </Key>
+          <Property Name="PDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaidAmount" Type="int" />
+          <Property Name="PaymentID" Type="int" />
+        </EntityType>
+        <EntityType Name="PaymentMode">
+          <Key>
+            <PropertyRef Name="PMID" />
+          </Key>
+          <Property Name="PMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PMName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PPrice" Type="int" />
+          <Property Name="DeliveryCharges" Type="int" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UName" Type="varchar" MaxLength="50" />
+          <Property Name="UAddress" Type="varchar" MaxLength="100" />
+          <Property Name="UCNIC" Type="bigint" />
+          <Property Name="UPhoneNumber" Type="bigint" />
+          <Property Name="UUserName" Type="varchar" MaxLength="50" />
+          <Property Name="UPassword" Type="varchar" MaxLength="50" />
+          <Property Name="URole" Type="int" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__Order__2F10007B">
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDERS">
+              <PropertyRef Name="OID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Produ__300424B4">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__BuyerID__29572725">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__OrderID__34C8D9D1">
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDERS">
+              <PropertyRef Name="OID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__35BCFE0A">
+          <End Role="PaymentMode" Type="Self.PaymentMode" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMode">
+              <PropertyRef Name="PMID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentModeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentDe__Payme__38996AB5">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="PaymentDetails" Type="Self.PaymentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PYID" />
+            </Principal>
+            <Dependent Role="PaymentDetails">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Supplie__2C3393D0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__URole__267ABA7A">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="URole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetLoginInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="WDMSModelStoreContainer">
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMode" EntityType="Self.PaymentMode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__OrderDeta__Order__2F10007B" Association="Self.FK__OrderDeta__Order__2F10007B">
+            <End Role="ORDERS" EntitySet="ORDERS" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Produ__300424B4" Association="Self.FK__OrderDeta__Produ__300424B4">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__BuyerID__29572725" Association="Self.FK__ORDERS__BuyerID__29572725">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__OrderID__34C8D9D1" Association="Self.FK__Payment__OrderID__34C8D9D1">
+            <End Role="ORDERS" EntitySet="ORDERS" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__35BCFE0A" Association="Self.FK__Payment__Payment__35BCFE0A">
+            <End Role="PaymentMode" EntitySet="PaymentMode" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentDe__Payme__38996AB5" Association="Self.FK__PaymentDe__Payme__38996AB5">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="PaymentDetails" EntitySet="PaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Supplie__2C3393D0" Association="Self.FK__Product__Supplie__2C3393D0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__URole__267ABA7A" Association="Self.FK__Users__URole__267ABA7A">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WDMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ODID" />
+          </Key>
+          <Property Name="ODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OPrice" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="ORDER" Relationship="Self.FK__OrderDeta__Order__2F10007B" FromRole="OrderDetail" ToRole="ORDERS" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__OrderDeta__Produ__300424B4" FromRole="OrderDetail" ToRole="Product" />
+          <Property Name="Qunatity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="OID" />
+          </Key>
+          <Property Name="OID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OTotal" Type="Int32" />
+          <Property Name="ODate" Type="DateTime" Precision="3" />
+          <Property Name="BuyerID" Type="Int32" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__2F10007B" FromRole="ORDERS" ToRole="OrderDetail" />
+          <NavigationProperty Name="User" Relationship="Self.FK__ORDERS__BuyerID__29572725" FromRole="ORDERS" ToRole="Users" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__OrderID__34C8D9D1" FromRole="ORDERS" ToRole="Payment" />
+          <Property Name="DeliveredTime" Type="DateTime" Precision="3" />
+          <Property Name="IsDelivered" Type="Boolean" />
+          <Property Name="SupplierId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PYID" />
+          </Key>
+          <Property Name="PYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="PaymentModeID" Type="Int32" />
+          <Property Name="PDateTime" Type="DateTime" Precision="3" />
+          <Property Name="NoOfInstallment" Type="Int32" />
+          <Property Name="NoOfInstallmentPaid" Type="Int32" />
+          <NavigationProperty Name="ORDER" Relationship="Self.FK__Payment__OrderID__34C8D9D1" FromRole="Payment" ToRole="ORDERS" />
+          <NavigationProperty Name="PaymentMode" Relationship="Self.FK__Payment__Payment__35BCFE0A" FromRole="Payment" ToRole="PaymentMode" />
+          <NavigationProperty Name="PaymentDetails" Relationship="Self.FK__PaymentDe__Payme__38996AB5" FromRole="Payment" ToRole="PaymentDetails" />
+        </EntityType>
+        <EntityType Name="PaymentDetail">
+          <Key>
+            <PropertyRef Name="PDID" />
+          </Key>
+          <Property Name="PDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaidAmount" Type="Int32" />
+          <Property Name="PaymentID" Type="Int32" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK__PaymentDe__Payme__38996AB5" FromRole="PaymentDetails" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="PaymentMode">
+          <Key>
+            <PropertyRef Name="PMID" />
+          </Key>
+          <Property Name="PMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PMName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__35BCFE0A" FromRole="PaymentMode" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PPrice" Type="Int32" />
+          <Property Name="DeliveryCharges" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__300424B4" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Product__Supplie__2C3393D0" FromRole="Product" ToRole="Users" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__URole__267ABA7A" FromRole="UserRole" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UCNIC" Type="Int64" />
+          <Property Name="UPhoneNumber" Type="Int64" />
+          <Property Name="UUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URole" Type="Int32" />
+          <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__BuyerID__29572725" FromRole="Users" ToRole="ORDERS" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Supplie__2C3393D0" FromRole="Users" ToRole="Product" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__Users__URole__267ABA7A" FromRole="Users" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__Order__2F10007B">
+          <End Role="ORDERS" Type="Self.ORDER" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDERS">
+              <PropertyRef Name="OID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Produ__300424B4">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__BuyerID__29572725">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__OrderID__34C8D9D1">
+          <End Role="ORDERS" Type="Self.ORDER" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDERS">
+              <PropertyRef Name="OID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__35BCFE0A">
+          <End Role="PaymentMode" Type="Self.PaymentMode" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMode">
+              <PropertyRef Name="PMID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentModeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentDe__Payme__38996AB5">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="PaymentDetails" Type="Self.PaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PYID" />
+            </Principal>
+            <Dependent Role="PaymentDetails">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Supplie__2C3393D0">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__URole__267ABA7A">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="URole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WDMS_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDER" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetail" />
+          <EntitySet Name="PaymentModes" EntityType="Self.PaymentMode" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__OrderDeta__Order__2F10007B" Association="Self.FK__OrderDeta__Order__2F10007B">
+            <End Role="ORDERS" EntitySet="ORDERS" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Produ__300424B4" Association="Self.FK__OrderDeta__Produ__300424B4">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__BuyerID__29572725" Association="Self.FK__ORDERS__BuyerID__29572725">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__OrderID__34C8D9D1" Association="Self.FK__Payment__OrderID__34C8D9D1">
+            <End Role="ORDERS" EntitySet="ORDERS" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__35BCFE0A" Association="Self.FK__Payment__Payment__35BCFE0A">
+            <End Role="PaymentMode" EntitySet="PaymentModes" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentDe__Payme__38996AB5" Association="Self.FK__PaymentDe__Payme__38996AB5">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="PaymentDetails" EntitySet="PaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Supplie__2C3393D0" Association="Self.FK__Product__Supplie__2C3393D0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__URole__267ABA7A" Association="Self.FK__Users__URole__267ABA7A">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="GetLoginInfo" ReturnType="Collection(String)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="sysdiagrams" EntityType="WDMSModel.sysdiagram" />
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WDMSModelStoreContainer" CdmEntityContainer="WDMS_Entities">
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="WDMSModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="Qunatity" ColumnName="Qunatity" />
+                <ScalarProperty Name="ODID" ColumnName="ODID" />
+                <ScalarProperty Name="OPrice" ColumnName="OPrice" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="WDMSModel.ORDER">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="DeliveredTime" ColumnName="DeliveredTime" />
+                <ScalarProperty Name="OID" ColumnName="OID" />
+                <ScalarProperty Name="OTotal" ColumnName="OTotal" />
+                <ScalarProperty Name="ODate" ColumnName="ODate" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="WDMSModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PYID" ColumnName="PYID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="PaymentModeID" ColumnName="PaymentModeID" />
+                <ScalarProperty Name="PDateTime" ColumnName="PDateTime" />
+                <ScalarProperty Name="NoOfInstallment" ColumnName="NoOfInstallment" />
+                <ScalarProperty Name="NoOfInstallmentPaid" ColumnName="NoOfInstallmentPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentDetails">
+            <EntityTypeMapping TypeName="WDMSModel.PaymentDetail">
+              <MappingFragment StoreEntitySet="PaymentDetails">
+                <ScalarProperty Name="PDID" ColumnName="PDID" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentModes">
+            <EntityTypeMapping TypeName="WDMSModel.PaymentMode">
+              <MappingFragment StoreEntitySet="PaymentMode">
+                <ScalarProperty Name="PMID" ColumnName="PMID" />
+                <ScalarProperty Name="PMName" ColumnName="PMName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="WDMSModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="PPrice" ColumnName="PPrice" />
+                <ScalarProperty Name="DeliveryCharges" ColumnName="DeliveryCharges" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="WDMSModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="RName" ColumnName="RName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="WDMSModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="UName" ColumnName="UName" />
+                <ScalarProperty Name="UAddress" ColumnName="UAddress" />
+                <ScalarProperty Name="UCNIC" ColumnName="UCNIC" />
+                <ScalarProperty Name="UPhoneNumber" ColumnName="UPhoneNumber" />
+                <ScalarProperty Name="UUserName" ColumnName="UUserName" />
+                <ScalarProperty Name="UPassword" ColumnName="UPassword" />
+                <ScalarProperty Name="URole" ColumnName="URole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetLoginInfo" FunctionName="WDMSModel.Store.GetLoginInfo" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WDMSModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
