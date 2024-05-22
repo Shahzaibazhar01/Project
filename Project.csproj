@@ -147,6 +147,7 @@
     <Compile Include="BusinessLogic\BL_Product.cs" />
     <Compile Include="BusinessLogic\Hepler.cs" />
     <Compile Include="BusinessObject\CreateOrder.cs" />
+    <Compile Include="BusinessObject\EmailService.cs" />
     <Compile Include="BusinessObject\User.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuyerController.cs" />

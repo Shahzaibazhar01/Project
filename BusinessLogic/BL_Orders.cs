@@ -75,20 +75,29 @@ namespace Project.BusinessLogic
                     db.OrderDetails.Add(orderDetails);
 
                     var payment = new Payment();
-                    payment.NoOfInstallment = string.IsNullOrEmpty(obj.NooOfInstallment.ToString()) ? 1: obj.NooOfInstallment;
+                    payment.NoOfInstallment = string.IsNullOrEmpty(obj.NooOfInstallment.ToString()) ? 1 : obj.NooOfInstallment;
                     payment.PaymentModeID = obj.PaymentMode;
                     payment.OrderID = orderid;
                     db.Payments.Add(payment);
 
                     db.SaveChanges();
+
+                    // Email notification after successful order placement
+                    var emailService = new EmailService();
+                    string subject = "New Order Created";
+                    string message = $"A new order with the following details has been created:<br/>Order ID: {order.OID}<br/>Product: {obj.ProductName}<br/>Quantity: {obj.Quantity}<br/>Price: {obj.Price}";
+                    string toEmail = "trendingturbos@gmail.com"; // Replace with actual recipient email
+                    emailService.SendEmail(toEmail, subject, message);
+
                     return "Ordered Successfully";
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return "Failed";
                 }
             }
         }
+
 
         internal static string SaveOrderPayments(int noofPaymentPaid, int orderID)
         {
