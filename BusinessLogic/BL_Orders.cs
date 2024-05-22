@@ -85,7 +85,7 @@ namespace Project.BusinessLogic
                     // Email notification after successful order placement
                     var emailService = new EmailService();
                     string subject = "New Order Created";
-                    string message = $"A new order with the following details has been created:<br/>Order ID: {order.OID}<br/>Product: {obj.ProductName}<br/>Quantity: {obj.Quantity}<br/>Price: {obj.Price}";
+                    string message = $"A new order with the following details has been created:<br/>Order ID: {order.OID}<br/>Quantity: {obj.Quantity}<br/>Price: {obj.Price}";
                     string toEmail = "trendingturbos@gmail.com"; // Replace with actual recipient email
                     emailService.SendEmail(toEmail, subject, message);
 
